@@ -39,10 +39,9 @@ namespace DotnetKafkaPublisherApi.Controllers
 
             using (var producer = new ProducerBuilder<Null, string>(config).Build())
             {
-                var stringValue = "";
                 for (int i = 0; i < 100; ++i)
                 {
-                    producer.ProduceAsync("dotnetexampletopic", new Message<Null, string> { Value = stringValue});
+                    producer.ProduceAsync("dotnetexampletopic", new Message<Null, string> { Value = value});
                 }
 
                 producer.Flush(timeout: TimeSpan.FromSeconds(10));
