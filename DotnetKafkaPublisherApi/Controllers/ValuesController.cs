@@ -30,7 +30,7 @@ namespace DotnetKafkaPublisherApi.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
-            var config = new ProducerConfig { BootstrapServers = "localhost:9092" };
+            var config = new ProducerConfig { BootstrapServers = "my-cluster-kafka:9092" };
 
             Action<DeliveryReport<Null, string>> handler = r =>
                 Console.WriteLine(!r.Error.IsError
