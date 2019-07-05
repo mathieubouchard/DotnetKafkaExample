@@ -28,7 +28,7 @@ namespace DotnetKafkaPublisherApi.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public string Post([FromBody] string value)
         {
             var config = new ProducerConfig { BootstrapServers = "my-cluster-kafka:9092" };
 
@@ -47,6 +47,8 @@ namespace DotnetKafkaPublisherApi.Controllers
 
                 producer.Flush(timeout: TimeSpan.FromSeconds(10));
             }
+
+            return "Succès";
         }
 
         // PUT api/values/5
