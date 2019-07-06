@@ -39,12 +39,14 @@ namespace DotnetKafkaPublisherApi.Controllers
 
             using (var producer = new ProducerBuilder<Null, string>(config).Build())
             {
-                for (int i = 0; i < 100; ++i)
-                {
+                try {
                     producer.ProduceAsync("dotnetexampletopic", new Message<Null, string> { Value = value});
+                    producer.Flush(timeout: TimeSpan.FromSeconds(10));
                 }
-
-                producer.Flush(timeout: TimeSpan.FromSeconds(10));
+                catch (ProduceException<Null, string> e)
+                {
+                    Console.WriteLine($"Delivery failed: {e.Error.Reason}");
+                }
             }
 
             return "Succès";
